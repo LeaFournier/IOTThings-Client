@@ -17,14 +17,9 @@ function Settings() {
 
     // USED FOR AVATAR
     const [file, setFile] = useState('');
-    const [filename, setFileName] = useState('Choose File');
-    const [uploadedFile, setUploadedFile] = useState({});
 
     const onChangeAvatar = e => {
         setFile(e.target.files[0]);
-        //console.log(filename);
-        //console.log(file)
-        setFileName(e.target.files[0].name);
     }
 
     const onSubmitAvatar = async e => {
@@ -33,17 +28,12 @@ function Settings() {
         formData.append('file', file);
 
         try {
-            const res = await Axios.post('http://35.176.229.91:8080/api/endUsers/avatar/'+userId, formData, {
+            await Axios.post('http://35.176.229.91:8080/api/endUsers/avatar/'+userId, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-
-            const {fileName, filePath} = res.data;
-
-            setUploadedFile({fileName, filePath});
-
-            //console.log(filePath);
+            window.location.reload(true)
         }catch(err) {
             console.log(err);
         }
@@ -74,26 +64,14 @@ function Settings() {
         if(result==="Error") {
             window.location.replace(`http://localhost:3000`);
         }
-        setUsername(result.pseudo)
-        setFirstName(result.first_name)
-        setLastName(result.last_name)
-        setPhone(result.phone)
-        setEmail(result.email)
+        setUsername(result[0].endUser.pseudo)
+        setFirstName(result[0].endUser.first_name)
+        setLastName(result[0].endUser.last_name)
+        setPhone(result[0].endUser.phone)
+        setEmail(result[0].endUser.email)
+        setAvatar(result[0].avatar)
         }
         asyncFn();
-    }, [])
-
-    useEffect(() => {
-        const asyncFn2 = async () =>{
-        let result = await fetch('http://35.176.229.91:8080/api/endUsers/avatar/'+userId, {headers: headers})
-        result = await result.json();
-        if(result==="Error") {
-            window.location.replace(`http://localhost:3000`);
-        }
-        console.log("Salut salut")
-        setAvatar(result)
-        }
-        asyncFn2();
     }, [])
 
     function updateUser(e){
@@ -156,33 +134,15 @@ function Settings() {
  
                         
                         <div id="col2">
-                            <div className="avatarRecupere">
-                                <img style={{width:'auto',maxHeight:'300px'}} src={avatar} />
-                            </div>
                             <form onSubmit={onSubmitAvatar}>
-{/*                              <div className="userPicture">
+                             <div className="userPicture">
                                 <label for="userPic">
-                                    <img src={uploadedFile} className='user'/>
+                                    <img style={{width:'auto', maxHeight:'300px'}} src={avatar} className='user'/>
                                 </label>
                                 <span id='picText'>Click to change your profile picture</span>
                                 <input id="userPic" type="file" onChange={onChangeAvatar} />
                                 <button className='SettingsPicture'> Submit</button>
-                            </div> */}
-
-
-
-                            <div className="userPictureContainer">
-                                <input type='file' className='userPicture'onChange={onChangeAvatar} />
-                                <label className="filename">{filename}</label>
-                                <input type='submit' value='Upload' />
                             </div>
-
-                            {uploadedFile ? (
-                                <div className='uploadedFileContainer'>
-                                    <h3>{uploadedFile.fileName}</h3>
-                                    <img style={{width:'auto',maxHeight:'300px'}} src={uploadedFile.filePath} />
-                                </div>
-                            ) : null}
                             </form>
                         </div>
 
