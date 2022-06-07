@@ -226,16 +226,25 @@ i{
     opacity: 0;
     pointer-events: none;
     white-space: nowrap;
+    width: 165px;
+    height: 100%;
 }
+
+.avatar_container {
+    height: 100%;
+    width: 100%;
+    margin-left: 20px;
+}
+
 .sidebar.active .profile .profile_details{
     opacity: 1;
     pointer-events: auto;
 }
 .profile .profile_details img{
-    height:45px;
-    width:45px;
-    object-fit:cover;
-    border-radius: 12px;
+    object-fit: cover;
+    border-radius: 50%;
+    height: 100%;
+    width: 50%;
 }
 .profile .profile_details .username{
     margin-left: 10px;

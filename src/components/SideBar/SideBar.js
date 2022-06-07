@@ -6,6 +6,7 @@ import bulb from "../../bulb1.png";
 import { MainContext } from '../../App';
 import user from "../../user.svg";
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default (props) => {
 
     const url="http://35.176.229.91:8080/api/clientIndex/logout/"
@@ -16,11 +17,12 @@ export default (props) => {
 
     var username = localStorage.getItem('username')
 
+    var avatarUrl = localStorage.getItem('avatarUrl')
+
     const [isActive, setisActive] = useState(JSON.parse(barOpened));
 
     const menuActive=()=>{
         setisActive(!isActive)
-        /* console.log('active'); */
     }
 
     if (isActive) {
@@ -103,7 +105,9 @@ export default (props) => {
                 <div className="profile_content">
                     <div className="profile">
                         <div className="profile_details">
-                            <img src={user} alt=""></img>
+                            <div className='avatar_container'>
+                                <img src={avatarUrl || user} className="logoAvatar"/>
+                            </div>
                             <div className="username">
                             {username}
                             </div>

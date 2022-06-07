@@ -4,12 +4,15 @@ import Axios from 'axios';
 import ReactDOM from 'react-dom';
 import OpenEye from '../../Eye.svg'
 import ClosedEye from '../../ClosedEye.svg'
+import LoadingSpinner from '../Spinner/LoadingSpinner';
 
 function MainForm() {
 
     const [passwordIsVisible, setPasswordIsVisible] = useState(false);
 
     const token = localStorage.getItem("token");
+
+    const [isLoading, setIsLoading] = useState()
 
     const url="http://35.176.229.91:8080/api/clientIndex/login/" 
     const [data, setData] = useState({
@@ -18,12 +21,14 @@ function MainForm() {
     })
 
     function submit(e){
+        setIsLoading(true)
         e.preventDefault();
         Axios.post(url,{
             email: data.email,
             password: data.password,
         })
         .then(res=>{
+            setIsLoading(false)
             console.log(res.data);
             if (res.data === "Email incorrect"){
                 ReactDOM.render(<p>Wrong email or password ! Please try again</p>, document.getElementById('WrongLogin'));
@@ -36,6 +41,9 @@ function MainForm() {
                 localStorage.setItem("username", res.data.username);
                 localStorage.setItem("id", res.data.userId);
                 localStorage.setItem("userHomeId", res.data.home_RW_key);
+                if (res.data.avatarUrl != null) {
+                    localStorage.setItem("avatarUrl", res.data.avatarUrl);
+                }
                 window.location.replace(`http://localhost:3000/Dashboard`);
             }
         })
@@ -57,7 +65,9 @@ function MainForm() {
     }
     else {
         return (
+        
         <div className='bodyMain'>
+            {isLoading ? <LoadingSpinner /> : 
             <form onSubmit={(e)=> submit(e)}>
                 <input onChange={(e)=>handle(e)} value={data.email} placeholder="Email*" type="email" id="email"></input>
                 <input onChange={(e)=>handle(e)} value={data.password} placeholder="Password*" type={passwordIsVisible ? 'text' : 'password'} id="password"></input>
@@ -75,6 +85,7 @@ function MainForm() {
                 <br /><br /><br />
                 <div id='WrongLogin'></div>
             </form>
+    }
         </div>
     );
         }

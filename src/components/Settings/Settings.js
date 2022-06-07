@@ -6,6 +6,7 @@ import { MainContext } from '../../App';
 import Bulb from '../../components/Bulb/Bulb'
 import userImg from "../../userImg.png";
 import Axios from 'axios';
+import LoadingSpinner from '../Spinner/LoadingSpinner';
 
 function Settings() {
 
@@ -15,14 +16,14 @@ function Settings() {
 
     const url = "http://35.176.229.91:8080/api/endUsers/" + userId
 
+    const [isLoading, setIsLoading] = useState(false);
+
+
     // USED FOR AVATAR
     const [file, setFile] = useState('');
 
-    const onChangeAvatar = e => {
-        setFile(e.target.files[0]);
-    }
-
     const onSubmitAvatar = async e => {
+        setIsLoading(true)
         e.preventDefault();
         const formData = new FormData();
         formData.append('file', file);
@@ -33,9 +34,14 @@ function Settings() {
                     'Content-Type': 'multipart/form-data'
                 }
             });
+            localStorage.setItem('avatarUrl', avatar)
+            setIsLoading(false)
             window.location.reload(true)
+            ReactDOM.render(<p id='successAvatar'>Update Successful</p>, document.getElementById('successAvatar'));
         }catch(err) {
             console.log(err);
+            window.location.reload(true)
+            ReactDOM.render(<p id='successAvatar'>Update Failed</p>, document.getElementById('successAvatar'));
         }
     }
 
@@ -58,6 +64,7 @@ function Settings() {
     var headers = {authorization: localStorage.getItem('token')}
 
     useEffect(() => {
+        setIsLoading(true)
         const asyncFn = async () =>{
         let result = await fetch(url, {headers: headers})
         result = await result.json();
@@ -70,11 +77,13 @@ function Settings() {
         setPhone(result[0].endUser.phone)
         setEmail(result[0].endUser.email)
         setAvatar(result[0].avatar)
+        setIsLoading(false)
         }
         asyncFn();
     }, [])
 
     function updateUser(e){
+        setIsLoading(true)
         e.preventDefault();
         Axios.put(url, {
             headers: headers,
@@ -88,16 +97,32 @@ function Settings() {
             if(res.data==="Error") {
                 window.location.replace(`http://localhost:3000`);
             }
+            setIsLoading(false)
             console.log("Changement effectué")
             localStorage.setItem('username', username)
-            ReactDOM.render(<p id='success'>Update Successful</p>, document.getElementById('success'));
+            ReactDOM.render(<p id='successForm'>Update Successful</p>, document.getElementById('successForm'));
         })
     }
+
+    const [newAvatar, setNewAvatar] = useState();
+
+    const onNewAvatar = (e) => {
+        setNewAvatar(true)
+        var output = document.getElementById('newImage');
+        output.src = URL.createObjectURL(e.target.files[0]);
+        output.onload = function() {
+          URL.revokeObjectURL(output.src) // free memory
+    }
+    ReactDOM.render(<p id='newAvatarToUpload'>New Avatar :</p>, document.getElementById('newAvatarToUpload'));
+    setFile(e.target.files[0]);
+    console.log("Hello")
+}
 
         return (
             <div>
                 <MainContext.Provider value={{navbarOpen, setNavbarOpen}}>
                 <SideBar />
+                {isLoading ? <LoadingSpinner /> : 
                     <div className='page_content' style = {{width: !navbarOpen ? 'calc(100% - 78px);' : 'calc(100% - 240px);', left: !navbarOpen ? '78px' : '240px'}} >
                         <div className='text'>
                             SETTINGS
@@ -126,28 +151,41 @@ function Settings() {
                             <input onChange={(e)=>{setPhone(e.target.value)}} value={phone} type="text" id="phone" name="phone"/>
                         </div>
                         <br/>
-
-                        <div id="success"></div>
-                        <button className='SettingsProfile' onClick={updateUser}>Submit</button>
+                        <div id="successForm"></div>
+                        <button className='SettingsProfile' onClick={updateUser} disabled={isLoading}>Submit</button>
 
                         </div>
  
                         
                         <div id="col2">
-                            <form onSubmit={onSubmitAvatar}>
+                            {/* <form onSubmit={onSubmitAvatar}> */}
                              <div className="userPicture">
                                 <label for="userPic">
-                                    <img style={{width:'auto', maxHeight:'300px'}} src={avatar} className='user'/>
+                                    <img style={{width:'auto', maxHeight:'300px'}} src={avatar || userImg} className='user'/>
                                 </label>
                                 <span id='picText'>Click to change your profile picture</span>
-                                <input id="userPic" type="file" onChange={onChangeAvatar} />
-                                <button className='SettingsPicture'> Submit</button>
+                                <input id="userPic" type="file" onChange={onNewAvatar} />
+
+                                <div id="successAvatar"></div>
+
                             </div>
-                            </form>
+                            {/* </form> */}
                         </div>
 
-                    </div> 
+                        <div id="col3">
+                            <div className='newUserPicture'>
+                                <div id="newAvatarToUpload"></div>
+                                <div>
+                                    <img id="newImage"/>
+                                </div>
+                                {newAvatar ? 
+                                <button className='SettingsPicture' disabled={isLoading} onClick={onSubmitAvatar}> Confirm ?</button> :
+                                null
+                            }
+                            </div>
+                        </div>
 
+                    </div> }
                 </MainContext.Provider>
                 <Bulb />
             </div>
