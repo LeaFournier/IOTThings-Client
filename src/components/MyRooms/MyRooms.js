@@ -4,6 +4,7 @@ import SideBar from '../../components/SideBar/SideBar'
 import { MainContext } from '../../App';
 import Bulb from '../../components/Bulb/Bulb'
 import bed from '../../bed.svg'; 
+import fridge from '../../fridge.svg'; 
 
 function MyRooms() {
 
@@ -42,31 +43,43 @@ function MyRooms() {
 
                         <br /><br /><br />
 
-   {/*  <button className="btn-modal" style={{width:'30%'}} onClick={toggleModal}>
-                            ROOM 1
-    </button> */}
+    <div
+          className="columns is-multiline is-mobile is-centered"
+          style={{ textAlign: 'center', margin: '0 auto', display:"flex"}}
+    >
 
     <div className="box">
-              <img style={{alignItems:'center', marginLeft:'10%'}} src={bed} width="200px" height="200px" onClick={toggleModal} /> 
-              <h1 id='TitleRoom1' style={{alignItems:'center', marginRight:'15%', marginLeft:'15%'}}>ROOM ONE</h1>
+              <img style={{alignItems:'center'}} src={bed} width="200px" height="200px" onClick={toggleModal} /> 
+              <h1 id='TitleRoom1' style={{alignItems:'center', marginRight:'15%', marginLeft:'15%'}}>ROOM 1</h1>
+    </div>
+    <div className="box">
+              <img style={{alignItems:'center'}} src={bed} width="200px" height="200px" onClick={toggleModal} /> 
+              <h1 id='TitleRoom1' style={{alignItems:'center', marginRight:'15%', marginLeft:'15%'}}>ROOM 2</h1>
+    </div>
+    <div className="box">
+              <img style={{alignItems:'center'}} src={fridge} width="200px" height="200px" onClick={toggleModal} /> 
+              <h1 id='TitleRoom1' style={{alignItems:'center', marginRight:'15%', marginLeft:'15%'}}>KITCHEN</h1>
+    </div>
     </div>
 
       {modal && (
         <div className="modal">
           <div onClick={toggleModal} className="overlay"></div>
           <div className="modal-content">
-            <h2>Hello Modal</h2>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident
-              perferendis suscipit officia recusandae, eveniet quaerat assumenda
-              id fugit, dignissimos maxime non natus placeat illo iusto!
-              Sapiente dolorum id maiores dolores? Illum pariatur possimus
-              quaerat ipsum quos molestiae rem aspernatur dicta tenetur. Sunt
-              placeat tempora vitae enim incidunt porro fuga ea.
-            </p>
-            <button className="close-modal" onClick={toggleModal}>
-              CLOSE
-            </button>
+            <h2>What would you like to change?</h2>
+            <div id="settingsFirstName">
+                <label for="firstname">First Name</label>
+                <input type="text" id="firstname" name="firstname" />
+            </div>
+            <div id="settingsLastName">
+                <label for="lastname">Last Name</label>
+                <input type="text" id="lastname" name="lastname" />
+            </div>
+            <div id="settingsEmail">
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email" />
+            </div>
+            <i class='bx bx-arrow-back' style={{fontSize:'30px', cursor:'pointer'}} onClick={toggleModal}></i>
           </div>
         </div>
       )}
@@ -88,7 +101,7 @@ function MyRooms() {
                             <input type="text" id="phone" name="phone" />
                         </div> */}
 
-                        <button className='SettingsProfile'>Submit</button>
+                        {/* <button className='SettingsProfile'>Submit</button> */}
 
                         </div>
  

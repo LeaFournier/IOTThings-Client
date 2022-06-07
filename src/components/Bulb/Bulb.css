@@ -49,12 +49,10 @@
 #dark .bedMyRooms{
   fill: #fff;
 }
-#white .bedMyRooms{
-  fill: #14163c;
+#dark .modal .modal-content{
+  background: #66757F;
 }
-#white h1#TitleRoom1{
-  color:#14163c;
-}
+
 
   @media only screen and (max-width: 450px) {
     .bulb {

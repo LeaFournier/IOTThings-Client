@@ -13,10 +13,11 @@ body.active-modal {
     border: #14163c 1px solid;
     border-radius: 10px;
     box-shadow: 5px 10px 8px #888888 ;
-    max-width: 250px;
+    max-width: 300px;
+    width: 250px;
     max-height: 300px;
     align-items: center;
-    margin-right: 10px;
+    margin-right: 40px;
 }
 .box:hover{
     cursor: pointer;
