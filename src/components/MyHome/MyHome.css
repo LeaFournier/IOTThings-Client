@@ -1,0 +1,30 @@
+#col3{
+    margin: 40px 0 0 80px;
+    width:60%;
+    display:inline-block;
+}
+#homeHomeID{
+    width: 60%;
+}
+#homeHomeName{
+    width: 60%;
+}
+#homeStreet{
+    width: 60%;
+}
+#homeCity{
+    width: 60%;
+}
+#homeRegion{
+    width: 60%;
+}
+#homePostCode{
+    width: 60%;
+}
+.HomeSubmit{
+    width: 15%;
+    height: 5%;
+    position: absolute;
+    top: 88%; left: 15%; 
+    transform: translate(-50%, -50%);
+}

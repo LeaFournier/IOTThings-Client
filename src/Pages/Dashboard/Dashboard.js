@@ -1,39 +1,27 @@
 import React, {useState} from 'react';
 import './Dashboard.css';
-import Axios from 'axios';
-import ReactDOM from 'react-dom';
-import Main from '../Main';
+import SideBar from '../../components/SideBar/SideBar'
+import { MainContext } from '../../App';
+import Bulb from '../../components/Bulb/Bulb'
 
 function Dashboard() {
 
-    const url="http://35.176.229.91:8080/api/clientIndex/logout/"
+    var barOpened = localStorage.getItem('barOpened')
 
-    var token = localStorage.getItem('token');
+    const [navbarOpen, setNavbarOpen] = useState(JSON.parse(barOpened))
 
-    const handleLogOut = () => {
-        Axios.get(url, { headers: {
-                authorization:localStorage.getItem('token')
-            }})
-            .then(res=>{
-                console.log(res.data);
-                window.localStorage.clear();
-                window.location.replace(`http://localhost:3000`);     
-    })};
-
-    if (!token) {
-        window.location.replace(`http://localhost:3000`);
-    }
-
-    if (token) {
         return  (
             <div>
-                <h1 className='dashboard'>DASHBOARD</h1>
-                <div className='buttonContain'>
-                    <button className='buttondash' onClick={handleLogOut} >Log Out</button>
-                </div>
+                <MainContext.Provider value={{navbarOpen, setNavbarOpen}}>
+                <SideBar />
+                    <div className='page_content' style = {{width: !navbarOpen ? 'calc(100% - 78px);' : 'calc(100% - 240px);', left: !navbarOpen ? '78px' : '240px'}} >
+                        <div className='text'>
+                            DASHBOARD
+                        </div>
+                    </div>
+                </MainContext.Provider>
+                <Bulb />
             </div>
-        );
-    }
+        )
 }
-
 export default Dashboard;

@@ -33,7 +33,9 @@ function MainForm() {
             }
             else { 
                 localStorage.setItem("token", res.data.token);
-                //localStorage.setItem("user", JSON.stringify(res.data));
+                localStorage.setItem("username", res.data.username);
+                localStorage.setItem("id", res.data.userId);
+                localStorage.setItem("userHomeId", res.data.home_RW_key);
                 window.location.replace(`http://localhost:3000/Dashboard`);
             }
         })
@@ -55,7 +57,7 @@ function MainForm() {
     }
     else {
         return (
-        <div>
+        <div className='bodyMain'>
             <form onSubmit={(e)=> submit(e)}>
                 <input onChange={(e)=>handle(e)} value={data.email} placeholder="Email*" type="email" id="email"></input>
                 <input onChange={(e)=>handle(e)} value={data.password} placeholder="Password*" type={passwordIsVisible ? 'text' : 'password'} id="password"></input>

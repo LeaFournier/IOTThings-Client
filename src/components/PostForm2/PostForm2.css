@@ -48,3 +48,10 @@ input{
       font-weight: bold;
       margin: 5px;
   }
+  .pass2{
+    font-style: italic;
+    position: absolute;
+    left: 36%; 
+    top: 65%;
+    transform: translate(-50%, -50%);
+}

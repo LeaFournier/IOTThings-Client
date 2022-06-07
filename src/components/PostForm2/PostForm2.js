@@ -9,7 +9,7 @@ function PostForm2() {
 
     var userFirstName = localStorage.getItem("userFirstName");
 
-    var userHomeId = localStorage.getItem('userHomeId');
+    var userSensorId = localStorage.getItem('userSensorId');
 
     var myvalue = {userFirstName};
 
@@ -33,7 +33,7 @@ function PostForm2() {
 
     function submit(e){
         e.preventDefault();
-        Axios.post(url + userHomeId,{
+        Axios.post(url + userSensorId,{
             name: data.name,
             firstname: data.firstname,
             lastname: data.lastname,
@@ -88,11 +88,11 @@ function PostForm2() {
                <input onChange={(e)=>handle(e)} id="date" value={data.date} placeholder="Date of Birth" type="date"></input>
                <input onChange={(e)=>handle(e)} id="password" value={data.password} placeholder="Password*" type={passwordIsVisible ? 'text' : 'password'} required style={{marginBottom:'10px'}}></input>
 
-                    <span onClick={() => setPasswordIsVisible((prevState) => !prevState)} style={{position:'absolute', top:'54.5%', left:'110%', transform:'translate (-50%, -50%)'}}>
+                    <span onClick={() => setPasswordIsVisible((prevState) => !prevState)} style={{position:'absolute', top:'52%', left:'110%', transform:'translate (-50%, -50%)'}}>
                         <img src={passwordIsVisible ? ClosedEye : OpenEye}  width="25"/>
                     </span>
 
-                    <ul>
+                    <ul className='pass2'>
                         <li style={{color: passwordHasUppercaseLetter ? '#003c39' : 'rgba(246, 246, 246, 0.908)'}}><span>One uppercase letter</span></li>
                         <li style={{color: passwordHasNumber ? '#003c39' : 'rgba(246, 246, 246, 0.908)'}}><span>One number</span></li>
                         <li style={{color: passwordHasValidLength ? '#003c39' : 'rgba(246, 246, 246, 0.908)'}}><span>Minimum 8 characters</span></li>

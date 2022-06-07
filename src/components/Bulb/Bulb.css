@@ -1,0 +1,48 @@
+.bulb{
+    /* box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); */
+    position: absolute;
+    top: 5%; left: 83%; 
+    transform: translate(-50%, -50%);
+    height: 150px;
+/*     width: 80px; */
+    max-width: 100%;
+    cursor: pointer;
+}
+#white{
+    background-image: none !important;
+    display: inline-block;
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+#dark{
+  background-image: none !important;
+  display: inline-block;
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.879);
+}
+#dark .text{
+  color: #fff;
+}
+#dark .subtitle{
+    color: #fff;
+  }
+#dark label{
+    color: #fff;
+}
+#dark input{
+    color: #fff;
+}
+#dark #picText{
+    color: #fff;
+}
+
+  @media only screen and (max-width: 450px) {
+    .bulb {
+        visibility: hidden;
+    }
+  }

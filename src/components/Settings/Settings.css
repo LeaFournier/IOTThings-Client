@@ -1,0 +1,85 @@
+.subtitle{
+    font-size: 18px;
+    font-weight: 500;
+    color:#14163c ; 
+    /* color: #fff; */
+    margin: 20px;
+    margin-left: 50px;
+}
+ 
+#col1{
+    margin: 40px 0 0 50px;
+    width:40%;
+    display:inline-block;
+}
+#col2{
+    margin: 15px 0 0 0px;
+    width:40%;
+    display: inline-block;
+    position: absolute;
+    top: 45%; left: 65%; 
+    transform: translate(-50%, -50%);
+}
+.user{
+    margin-left: 0px;
+    cursor:pointer;
+} 
+.userPicture #picText {
+    visibility: hidden;
+}
+.userPicture label:hover + #picText {
+    visibility: visible;
+}
+#picText{
+    font-size: 12px;
+    font-style: italic;
+    position: absolute;
+    top: 110%; left: 28.5%; 
+    transform: translate(-50%, -50%);
+}
+#settingsUsername{
+    width: 60%;
+}
+#settingsFirstName{
+    width: 60%;
+}
+#settingsLastName{
+    width: 60%;
+}
+#settingsEmail{
+    width: 60%;
+}
+#settingsPhone{
+    width: 60%;
+}
+.SettingsProfile{
+    width: 15%;
+    height: 5%;
+    position: absolute;
+    top: 80%; left: 15%; 
+    transform: translate(-50%, -50%);
+}
+.SettingsPicture{
+    width: 64%;
+    height: 11%;
+    position: absolute;
+    top: 121%; left: 45.5%; 
+    transform: translate(-50%, -50%);
+}
+.userPicture>input {
+    display: none;
+  }
+.profileSettings{
+    position: absolute;
+    top: 50%; left: 15%; 
+    transform: translate(-50%, -50%);
+  } 
+
+#success {
+    color: green;
+    font-size: 12px;
+    font-style: italic;
+    position: absolute;
+    width: max-content;
+    left: 11%;
+}

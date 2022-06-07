@@ -35,7 +35,7 @@ function AddressForm() {
         console.log(newdata)
     }
     return (
-        <div>
+        <div className='body'>
          <form onSubmit={(e)=> submit(e)}>
                <input onChange={(e)=>handle(e)} id="street" value={data.street} placeholder="Street" type="text"></input>
                <input onChange={(e)=>handle(e)} id="city" value={data.city} placeholder="City" type="text"></input>
