@@ -40,6 +40,21 @@
 #dark #picText{
     color: #fff;
 }
+#dark h1#TitleRoom1{
+  color: #fff;
+}
+#dark .box{
+  border: rgb(146, 144, 144) 1px solid;
+}
+#dark .bedMyRooms{
+  fill: #fff;
+}
+#white .bedMyRooms{
+  fill: #14163c;
+}
+#white h1#TitleRoom1{
+  color:#14163c;
+}
 
   @media only screen and (max-width: 450px) {
     .bulb {
