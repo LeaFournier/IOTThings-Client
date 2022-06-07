@@ -68,16 +68,12 @@ function MyRooms() {
           <div className="modal-content">
             <h2>What would you like to change?</h2>
             <div id="settingsFirstName">
-                <label for="firstname">First Name</label>
-                <input type="text" id="firstname" name="firstname" />
+                <label for="roomName">Room's name</label>
+                <input type="text" id="roomName" name="roomName" />
             </div>
             <div id="settingsLastName">
-                <label for="lastname">Last Name</label>
-                <input type="text" id="lastname" name="lastname" />
-            </div>
-            <div id="settingsEmail">
-                <label for="email">Email</label>
-                <input type="text" id="email" name="email" />
+                <label for="nbSensorsRoom">Number of sensors</label>
+                <input type="text" id="nbSensorsRoom" name="nbSensorsRoom" />
             </div>
             <i class='bx bx-arrow-back' style={{fontSize:'30px', cursor:'pointer'}} onClick={toggleModal}></i>
           </div>

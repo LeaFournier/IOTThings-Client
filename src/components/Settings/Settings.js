@@ -35,7 +35,6 @@ function Settings() {
                 }
             });
             localStorage.setItem('avatarUrl', avatar)
-            setIsLoading(false)
             window.location.reload(true)
             ReactDOM.render(<p id='successAvatar'>Update Successful</p>, document.getElementById('successAvatar'));
         }catch(err) {
@@ -172,11 +171,11 @@ function Settings() {
                             {/* </form> */}
                         </div>
 
-                        <div id="col3">
+                        <div id="col4">
                             <div className='newUserPicture'>
                                 <div id="newAvatarToUpload"></div>
                                 <div>
-                                    <img id="newImage"/>
+                                    <img id="newImage" style={{width:'auto', maxHeight:'400px', maxWidth:'250px'}}/>
                                 </div>
                                 {newAvatar ? 
                                 <button className='SettingsPicture' disabled={isLoading} onClick={onSubmitAvatar}> Confirm ?</button> :
