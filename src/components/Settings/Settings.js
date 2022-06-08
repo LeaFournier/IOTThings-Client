@@ -31,7 +31,8 @@ function Settings() {
         try {
             await Axios.post('http://35.176.229.91:8080/api/endUsers/avatar/'+userId, formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data',
+                    authorization: localStorage.getItem('token')
                 }
             });
             localStorage.setItem('avatarUrl', avatar)
@@ -127,7 +128,8 @@ function Settings() {
                             SETTINGS
                         </div>
                         <div className='subtitle'>EDIT YOUR PROFILE</div>
-                        <div id="col1">
+                        <div className="columns is-multiline is-mobile is-centered" style={{margin: '0 auto', display:"flex", columnWidth: '300px'}}>
+                        <div /* id='col1' */ className="column is-narrow is-flex-direction-column settingsBox" style={{marginLeft:'5%', marginTop:'5%'}} >
                       
                         <div id="settingsUsername">
                             <label for="username">Username</label>
@@ -156,32 +158,35 @@ function Settings() {
                         </div>
  
                         
-                        <div id="col2">
+                        <div /* id='col2' */ className="column is-narrow is-flex-direction-column settingsBox" style={{marginRight:'5%', marginLeft:'5%', marginTop:'8%'}} >
                             {/* <form onSubmit={onSubmitAvatar}> */}
                              <div className="userPicture">
                                 <label for="userPic">
-                                    <img style={{width:'auto', maxHeight:'300px'}} src={avatar || userImg} className='user'/>
+                                    <img style={{width:'auto', maxHeight:'300px',maxWidth:'350px'}} src={avatar || userImg} className='user'/>
                                 </label>
-                                <span id='picText'>Click to change your profile picture</span>
                                 <input id="userPic" type="file" onChange={onNewAvatar} />
-
                                 <div id="successAvatar"></div>
-
                             </div>
+                            <div className="hoverUserPicture">
+                                <span id='picText' style={{fontSize: '12px',fontStyle: 'italic'}}>Click to change your profile picture</span>
+                            </div>
+
                             {/* </form> */}
                         </div>
 
-                        <div id="col4">
+                        <div /* id='col3' */ className="column is-narrow is-flex-direction-column settingsBox"style={{marginRight:'5%', marginLeft:'5%', marginTop:'5%',alignItems:'center'}} >
                             <div className='newUserPicture'>
                                 <div id="newAvatarToUpload"></div>
+                                <br />
                                 <div>
-                                    <img id="newImage" style={{width:'auto', maxHeight:'400px', maxWidth:'250px'}}/>
+                                    <img id="newImage" style={{width:'auto', maxHeight:'400px', maxWidth:'350px'}}/>
                                 </div>
+                                <br />
                                 {newAvatar ? 
-                                <button className='SettingsPicture' disabled={isLoading} onClick={onSubmitAvatar}> Confirm ?</button> :
-                                null
-                            }
+                                <button className='SettingsPicture' disabled={isLoading} onClick={onSubmitAvatar} style={{width:'16%', height:'5%',marginTop:'5px',alignItems:'center'}}> Confirm ?</button> : null }
                             </div>
+                        </div>
+
                         </div>
 
                     </div> }

@@ -30,42 +30,42 @@
 .userPicture label:hover + #picText {
     visibility: visible;
 }
-#picText{
+/* #picText{
     font-size: 12px;
     font-style: italic;
     position: absolute;
-    top: 110%; left: 28.5%; 
+    top: 80%; left: 37%; 
     transform: translate(-50%, -50%);
-}
-#settingsUsername{
-    width: 60%;
+}  */
+/* #settingsUsername{
+    width: 100%;
 }
 #settingsFirstName{
-    width: 60%;
+    width: 100%;
 }
 #settingsLastName{
-    width: 60%;
+    width: 100%;
 }
 #settingsEmail{
-    width: 60%;
+    width: 100%;
 }
 #settingsPhone{
-    width: 60%;
-}
+    width: 100%;
+} */
 .SettingsProfile{
-    width: 15%;
+    width: 16%;
     height: 5%;
     position: absolute;
-    top: 80%; left: 15%; 
+    top: 80%; left: 13%; 
     transform: translate(-50%, -50%);
 }
-.SettingsPicture{
-    width: 64%;
-    height: 11%;
+/* .SettingsPicture{
+    width: 16%;
+    height: 5%;
     position: absolute;
-    top: 121%; left: 45.5%; 
+    top: 90%; left: 59.5%; 
     transform: translate(-50%, -50%);
-}
+} */
 .userPicture>input {
     display: none;
   }
@@ -101,4 +101,7 @@
         top: 45%;
         left: 80%;
         transform: translate(-50%, -50%);
+}
+.settingsBox{
+    column-width: '300px';
 }

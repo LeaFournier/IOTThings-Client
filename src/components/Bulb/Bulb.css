@@ -53,6 +53,12 @@
   background: #66757F;
 }
 
+#dark #newAvatarToUpload{
+  color:#fff;
+}
+#white #newAvatarToUpload{
+  color:black;
+}
 
   @media only screen and (max-width: 450px) {
     .bulb {
