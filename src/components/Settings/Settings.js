@@ -18,6 +18,8 @@ function Settings() {
 
     const [isLoading, setIsLoading] = useState(false);
 
+    var token = localStorage.getItem('token')
+
 
     // USED FOR AVATAR
     const [file, setFile] = useState('');
@@ -27,24 +29,25 @@ function Settings() {
         e.preventDefault();
         const formData = new FormData();
         formData.append('file', file);
-
-        try {
             await Axios.post('http://35.176.229.91:8080/api/endUsers/avatar/'+userId, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     authorization: localStorage.getItem('token')
                 }
-            });
-            localStorage.setItem('avatarUrl', avatar)
-            window.location.reload(true)
-            ReactDOM.render(<p id='successAvatar'>Update Successful</p>, document.getElementById('successAvatar'));
-        }catch(err) {
-            console.log(err);
-            window.location.reload(true)
-            ReactDOM.render(<p id='successAvatar'>Update Failed</p>, document.getElementById('successAvatar'));
-        }
+            })
+            .then(res => {
+                if(res.data === "Error") {
+                    localStorage.clear()
+                    window.alert("Update failed, please reconnect")
+                    window.location.replace(`http://localhost:3000`)
+                }
+                else {
+                localStorage.setItem('avatarUrl', res.data)
+                window.location.reload(true) 
+            }
+            })
+        
     }
-
 
     // USED FOR USER FORM
     const [navbarOpen, setNavbarOpen] = useState(JSON.parse(barOpened))
@@ -66,11 +69,9 @@ function Settings() {
     useEffect(() => {
         setIsLoading(true)
         const asyncFn = async () =>{
+        try {
         let result = await fetch(url, {headers: headers})
         result = await result.json();
-        if(result==="Error") {
-            window.location.replace(`http://localhost:3000`);
-        }
         setUsername(result[0].endUser.pseudo)
         setFirstName(result[0].endUser.first_name)
         setLastName(result[0].endUser.last_name)
@@ -79,28 +80,32 @@ function Settings() {
         setAvatar(result[0].avatar)
         setIsLoading(false)
         }
-        asyncFn();
+        catch {
+            localStorage.clear()
+            window.alert("Please reconnect")
+            window.location.replace(`http://localhost:3000`)
+        }
+        }
+        asyncFn()
     }, [])
+
+    const user = {pseudo : username, first_name: firstName, last_name: lastName, email: email, phone: phone}
 
     function updateUser(e){
         setIsLoading(true)
         e.preventDefault();
-        Axios.put(url, {
-            headers: headers,
-            pseudo : username,
-            first_name: firstName,
-            last_name: lastName,
-            email: email,
-            phone: phone
-        })
+        Axios.put(url, user, {headers})
         .then(res=>{
-            if(res.data==="Error") {
-                window.location.replace(`http://localhost:3000`);
+            if(res.data === "Error") {
+                localStorage.clear()
+                window.alert("Update failed, please reconnect")
+                window.location.replace(`http://localhost:3000`)
             }
+            else {
             setIsLoading(false)
             console.log("Changement effectué")
             localStorage.setItem('username', username)
-            ReactDOM.render(<p id='successForm'>Update Successful</p>, document.getElementById('successForm'));
+            }
         })
     }
 
@@ -117,6 +122,12 @@ function Settings() {
     setFile(e.target.files[0]);
     console.log("Hello")
 }
+
+if (!token) {
+    window.location.replace(`http://localhost:3000`);
+}
+
+if (token) {
 
         return (
             <div>
@@ -158,18 +169,22 @@ function Settings() {
                         </div>
  
                         
-                        <div /* id='col2' */ className="column is-narrow is-flex-direction-column settingsBox" style={{marginRight:'5%', marginLeft:'5%', marginTop:'8%'}} >
+                        <div /* id='col2' */ className="column is-narrow is-flex-direction-column settingsBox" style={{marginRight:'5%', marginLeft:'5%', marginTop:'5%'}} >
                             {/* <form onSubmit={onSubmitAvatar}> */}
                              <div className="userPicture">
+                                 <div>
+                                    <label id='labelAvatar' for="settingsUserPic">Avatar</label>
+                                </div>
+                                <br />
                                 <label for="userPic">
-                                    <img style={{width:'auto', maxHeight:'300px',maxWidth:'350px'}} src={avatar || userImg} className='user'/>
+                                    <img style={{width:'auto', maxHeight:'300px',maxWidth:'350px'}} src={avatar || userImg} className='user' id='settingsUserPic'/>
                                 </label>
                                 <input id="userPic" type="file" onChange={onNewAvatar} />
                                 <div id="successAvatar"></div>
                             </div>
-                            <div className="hoverUserPicture">
+                            {/* <div className="hoverUserPicture">
                                 <span id='picText' style={{fontSize: '12px',fontStyle: 'italic'}}>Click to change your profile picture</span>
-                            </div>
+                            </div> */}
 
                             {/* </form> */}
                         </div>
@@ -195,5 +210,6 @@ function Settings() {
             </div>
         )
     }
+}
 
 export default Settings;

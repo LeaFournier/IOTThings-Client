@@ -232,8 +232,12 @@ i{
 
 .avatar_container {
     height: 100%;
+    width: 50%;
+    /* margin-left: 20px; */
+}
+.logoAvatar{
+    height: 100%;
     width: 100%;
-    margin-left: 20px;
 }
 
 .sidebar.active .profile .profile_details{
@@ -247,9 +251,10 @@ i{
     width: 50%;
 }
 .profile .profile_details .username{
-    margin-left: 10px;
+    /* margin-left: 10px; */
     font-size: 15px;
-    font-weight: 400;
+    font-weight: 700;
+/*     font-weight: bold; */
 }
 .profile #log_out{
     position: absolute;

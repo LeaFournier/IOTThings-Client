@@ -41,6 +41,8 @@ function MainForm() {
                 localStorage.setItem("username", res.data.username);
                 localStorage.setItem("id", res.data.userId);
                 localStorage.setItem("userHomeId", res.data.home_RW_key);
+                localStorage.setItem('bulb', 'true')
+                localStorage.setItem('barOpened', 'true')
                 if (res.data.avatarUrl != null) {
                     localStorage.setItem("avatarUrl", res.data.avatarUrl);
                 }

@@ -27,8 +27,16 @@
 .userPicture #picText {
     visibility: hidden;
 }
-.userPicture label:hover + #picText {
+.userPicture label:hover #picText {
     visibility: visible;
+}
+
+.userPicture :hover {
+    opacity: 0.7;
+}
+
+.userPicture .labelAvatar :hover {
+    color: black !important;
 }
 /* #picText{
     font-size: 12px;

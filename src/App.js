@@ -15,9 +15,6 @@ import MyHome from '../src/components/MyHome/MyHome';
 import MyRooms from '../src/components/MyRooms/MyRooms';
 import MySensors from '../src/components/MySensors/MySensors';
 import Settings from '../src/components/Settings/Settings';
-import SideBar from '../src/components/SideBar/SideBar';
-/* import '../node_modules/bootstrap/dist/css/bootstrap.min.css'; */
-import Upload from './components/FileUpload';
 
 export const MainContext = React.createContext({navbarOpen: false, setNavbarOpen: () => {} });
 
@@ -41,7 +38,6 @@ function App() {
         <Route path={"/SelectID"} exact component={IntermediatePage} />
         <Route path={"/SensorID"} exact component={SensorConfirmation} />
         <Route path={`/${userSensorId}/signupForm`} exact component={SubscriptionForm2} />
-        <Route path={"/upload"} exact component={Upload} />
         <MainContext.Provider value= {{navbarOpen, setNavbarOpen}}>
           <Route path="/Dashboard" exact component={Dashboard} />
           <Route path="/myHome" exact component={MyHome} />

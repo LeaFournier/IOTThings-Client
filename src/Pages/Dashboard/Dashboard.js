@@ -10,6 +10,13 @@ function Dashboard() {
 
     const [navbarOpen, setNavbarOpen] = useState(JSON.parse(barOpened))
 
+    var token = localStorage.getItem('token')
+
+    if(!token) {
+        window.location.replace(`http://localhost:3000`)
+    }
+
+    else {
         return  (
             <div>
                 <MainContext.Provider value={{navbarOpen, setNavbarOpen}}>
@@ -23,5 +30,6 @@ function Dashboard() {
                 <Bulb />
             </div>
         )
+    }
 }
 export default Dashboard;
