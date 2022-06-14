@@ -82,7 +82,6 @@ function Settings() {
         }
         catch {
             localStorage.clear()
-            window.alert("Please reconnect")
             window.location.replace(`http://localhost:3000`)
         }
         }
@@ -118,7 +117,7 @@ function Settings() {
         output.onload = function() {
           URL.revokeObjectURL(output.src) // free memory
     }
-    ReactDOM.render(<p id='newAvatarToUpload'>New Avatar :</p>, document.getElementById('newAvatarToUpload'));
+    ReactDOM.render(<label for='newAvatarToUpload'>New Avatar :</label>, document.getElementById('newAvatarToUpload'));
     setFile(e.target.files[0]);
     console.log("Hello")
 }
@@ -140,7 +139,7 @@ if (token) {
                         </div>
                         <div className='subtitle'>EDIT YOUR PROFILE</div>
                         <div className="columns is-multiline is-mobile is-centered" style={{margin: '0 auto', display:"flex", columnWidth: '300px'}}>
-                        <div /* id='col1' */ className="column is-narrow is-flex-direction-column settingsBox" style={{marginLeft:'5%', marginTop:'5%'}} >
+                        <div /* id='col1' */ className="column is-narrow is-flex-direction-column settingsBox" style={{marginLeft:'5%', marginTop:'5%', marginRight:'3%'}} >
                       
                         <div id="settingsUsername">
                             <label for="username">Username</label>
@@ -169,15 +168,15 @@ if (token) {
                         </div>
  
                         
-                        <div /* id='col2' */ className="column is-narrow is-flex-direction-column settingsBox" style={{marginRight:'5%', marginLeft:'5%', marginTop:'5%'}} >
+                        <div /* id='col2' */ className="column is-narrow is-flex-direction-column settingsBox" style={{marginRight:'5%', marginLeft:'3%', marginTop:'5%'}} >
                             {/* <form onSubmit={onSubmitAvatar}> */}
+                            <div>
+                                <label id='labelAvatar' for="settingsUserPic">Avatar</label>
+                            </div>
                              <div className="userPicture">
-                                 <div>
-                                    <label id='labelAvatar' for="settingsUserPic">Avatar</label>
-                                </div>
                                 <br />
                                 <label for="userPic">
-                                    <img style={{width:'auto', maxHeight:'300px',maxWidth:'350px'}} src={avatar || userImg} className='user' id='settingsUserPic'/>
+                                    <img style={{width:'auto', maxHeight:'300px',maxWidth:'350px',borderRadius:'8px',boxShadow: '5px 10px 8px #888888',border:'solid black 2px'}} src={avatar || userImg} className='user' id='settingsUserPic'/>
                                 </label>
                                 <input id="userPic" type="file" onChange={onNewAvatar} />
                                 <div id="successAvatar"></div>
@@ -189,7 +188,7 @@ if (token) {
                             {/* </form> */}
                         </div>
 
-                        <div /* id='col3' */ className="column is-narrow is-flex-direction-column settingsBox"style={{marginRight:'5%', marginLeft:'5%', marginTop:'5%',alignItems:'center'}} >
+                        <div /* id='col3' */ className="column is-narrow is-flex-direction-column settingsBox"style={{marginRight:'5%', marginLeft:'3%', marginTop:'5%',alignItems:'center'}} >
                             <div className='newUserPicture'>
                                 <div id="newAvatarToUpload"></div>
                                 <br />
@@ -198,7 +197,7 @@ if (token) {
                                 </div>
                                 <br />
                                 {newAvatar ? 
-                                <button className='SettingsPicture' disabled={isLoading} onClick={onSubmitAvatar} style={{width:'16%', height:'5%',marginTop:'5px',alignItems:'center'}}> Confirm ?</button> : null }
+                                <button className='SettingsPicture' disabled={isLoading} onClick={onSubmitAvatar} style={{width:'16%', height:'5%',marginTop:'5px',alignItems:'center'}}>Confirm</button> : null }
                             </div>
                         </div>
 

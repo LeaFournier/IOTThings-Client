@@ -69,7 +69,7 @@ function MainForm() {
         return (
         
         <div className='bodyMain'>
-            {isLoading ? <LoadingSpinner /> : 
+            {isLoading ? <LoadingSpinner /> :  
             <form onSubmit={(e)=> submit(e)}>
                 <input onChange={(e)=>handle(e)} value={data.email} placeholder="Email*" type="email" id="email"></input>
                 <input onChange={(e)=>handle(e)} value={data.password} placeholder="Password*" type={passwordIsVisible ? 'text' : 'password'} id="password"></input>
@@ -85,9 +85,9 @@ function MainForm() {
                 <br /><br />
                 <a href="/ForgottenPassword" style={{fontSize:'12px',fontWeight:'normal', cursor:'pointer', color:'white', textDecoration:'none', position:'absolute', top:'80%',left:'50%',transform:'translate(-50%, -50%)'}}> Forgotten password ?</a>
                 <br /><br /><br />
-                <div id='WrongLogin'></div>
             </form>
-    }
+     } 
+     <div id='WrongLogin'></div>
         </div>
     );
         }

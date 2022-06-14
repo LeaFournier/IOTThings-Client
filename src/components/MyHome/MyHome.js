@@ -56,7 +56,7 @@ function MyHome() {
                 window.location.replace(`http://localhost:3000`);
             }
             console.log("Changement effectué")
-            ReactDOM.render(<p id='success'>Update Successful</p>, document.getElementById('success'));
+            ReactDOM.render(<p id='success' style={{color:'green'}}>Update Successful</p>, document.getElementById('success'));
         })
     }
 

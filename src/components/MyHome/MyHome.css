@@ -4,27 +4,27 @@
     display:inline-block;
 }
 #homeHomeID{
-    width: 60%;
+    width: 40%;
 }
 #homeHomeName{
-    width: 60%;
+    width: 40%;
 }
 #homeStreet{
-    width: 60%;
+    width: 40%;
 }
 #homeCity{
-    width: 60%;
+    width: 40%;
 }
 #homeRegion{
-    width: 60%;
+    width: 40%;
 }
 #homePostCode{
-    width: 60%;
+    width: 40%;
 }
 .HomeSubmit{
     width: 15%;
     height: 5%;
     position: absolute;
-    top: 88%; left: 15%; 
+    top: 88%; left: 13%; 
     transform: translate(-50%, -50%);
 }

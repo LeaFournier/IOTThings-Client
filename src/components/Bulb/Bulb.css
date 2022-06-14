@@ -53,11 +53,49 @@
   background: #66757F;
 }
 
+#dark .modal .modal-content-sensor{
+  background: #66757F;
+}
+
 #dark #newAvatarToUpload{
   color:#fff;
 }
 #white #newAvatarToUpload{
   color:black;
+}
+#dark .dropdown .dropdown-content{
+  color: black;
+  background: #7d8a92;
+  box-shadow: 3px 10px 10px rgba(17, 23, 93, 0.3);
+}
+#dark .dropdown .dropdown-btn{
+  color: black;
+  background: #7d8a92;
+  box-shadow: 3px 10px 10px rgba(17, 23, 93, 0.3);
+}
+#dark .rooms-list{
+  color: #fff;
+}
+/* #dark .rooms-list ul li{
+  border: 1px solid #66757F;
+} */
+#dark .add-room{
+  color: #fff;
+}
+#dark .add-text{
+  color: #fff;
+}
+#dark .delete-room{
+  color: #fff;
+}
+#dark .delete-text{
+  color: #fff;
+}
+#dark #deleteButton{
+  box-shadow: 3px 6px 6px rgba(30, 42, 169, 0.3);
+}
+#dark #updateButton{
+  box-shadow: 3px 6px 6px rgba(30, 42, 169, 0.3);
 }
 
   @media only screen and (max-width: 450px) {
