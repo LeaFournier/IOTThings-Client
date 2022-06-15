@@ -11,6 +11,8 @@ import Dropdown from '../Dropdown/Dropdown';
 function MySensors() {
 
     var barOpened = localStorage.getItem('barOpened')
+    
+    var token = localStorage.getItem('token')
 
     var headers = {authorization: localStorage.getItem('token')}
 
@@ -19,8 +21,6 @@ function MySensors() {
     const [isActive, setIsActive] = useState(false)
 
     const [options, setOptions] = useState([])
-
-    const [roomsNames, setRoomsNames] = useState([])
 
     const [modalMessage, setModalMessage] = useState("Add a new sensor")
 
@@ -35,10 +35,6 @@ function MySensors() {
     const [sensorType, setSensorType] = useState();
 
     const [sensorId, setSensorId] = useState();
-
-    const [newSensorName, setNewSensorName] = useState();
-
-    const [sensorKey, setSensorKey] = useState();
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -123,19 +119,11 @@ function MySensors() {
         const getMyRooms = async () =>{
             let result = await fetch(`http://35.176.229.91:8080/api/rooms/roomsNames/homeId/` + localStorage.getItem('userHomeId'), {headers: headers})
             result = await result.json(); 
-            console.log(result)
             setOptions(result)
-
-            console.log(options)
-            /* catch {
-              localStorage.clear()
-              window.location.replace(`http://localhost:3000`)
-          } */
             }
 
       function checkSensor(e){
         e.preventDefault();
-        //console.log(data);
         Axios.get(`http://35.176.229.91:8080/api/sensors/sensorvalidator/${sensorId}`,{
             sensorId: data.sensorId,
         })
@@ -144,7 +132,6 @@ function MySensors() {
             e.preventDefault();
             getOneSensor();
             toggleModalEdit();
-            //alert('Correct house ID !');
         }
         else if (res.data === "Sensor not found"){ 
             //alert('Wrong house ID !');
@@ -164,6 +151,7 @@ function MySensors() {
         .then(res=>{
             if(res.data === "Error") {
                 ReactDOM.render(<p>Please choose your room</p>, document.getElementById('noRoomChosen'));
+                setIsLoading(false);
             }
             else {
             setIsLoading(false)
@@ -197,6 +185,12 @@ function MySensors() {
         })
       }
 
+      if (!token) {
+        window.location.replace(`http://localhost:3000`);
+      }
+      
+      if (token) {
+
         return  (
             <div>
                 <MainContext.Provider value={{navbarOpen, setNavbarOpen}}>
@@ -225,7 +219,7 @@ function MySensors() {
                            <li style={{textAlign:'center'}}>{item.sensor_type}</li>
                            <li style={{textAlign:'center'}}>{item.room_name}</li>
                            <li><button id="deleteButton" onClick={()=>deleteSensor(item.sensor_RW_key)} style={{marginLeft:'45px', marginTop:'35px'}}>Delete</button></li>
-                           <li><button id="updateButton" onClick={() => {toggleModalEdit(); getOneSensorToUpdate(item.sensor_RW_key); setSensorKey(item.sensor_RW_key); setNewSensorName(item.sensor_name); setModalMessage("Edit this sensor"); setSensorId(item.sensor_RW_key)}} style={{marginLeft:'50px', marginTop:'35px'}}>Update</button></li>
+                           <li><button id="updateButton" onClick={() => {toggleModalEdit(); getOneSensorToUpdate(item.sensor_RW_key); setModalMessage("Edit this sensor"); setSensorId(item.sensor_RW_key)}} style={{marginLeft:'50px', marginTop:'35px'}}>Update</button></li>
                          </ul>
                            )
                          }
@@ -315,5 +309,6 @@ function MySensors() {
                 <Bulb />
             </div>
         )
+}
 }
 export default MySensors;
