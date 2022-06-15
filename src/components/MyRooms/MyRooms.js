@@ -69,6 +69,7 @@ var token = localStorage.getItem('token')
     try {
     let result = await fetch(url, {headers: headers})
     result = await result.json(); 
+    console.log(result)
     setRooms(result)
     setIsLoading(false)
   }
@@ -163,7 +164,7 @@ if (token) {
                         <br />
                         <div className='rooms-list'>
                          
-                          <ul>
+                          <ul style={{fontWeight:'bold'}}>
                             <li style={{textAlign:'center'}}>Room name</li>
                             <li style={{textAlign:'center'}}>Room type</li>
                             <li style={{textAlign:'center'}}>Total number of sensors</li>

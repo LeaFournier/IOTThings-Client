@@ -4,7 +4,7 @@ import './Dropdown.css';
 function Dropdown({selected, setSelected}) {
 
     const [isActive, setIsActive] = useState(false)
-    const options = ['Room','Kitchen','Bathroom','Toilet','Living room']
+    const options = ['Bedroom','Kitchen','Bathroom','Toilet','Living room']
 
     return (
         <div className="dropdown">

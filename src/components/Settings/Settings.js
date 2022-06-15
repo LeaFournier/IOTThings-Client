@@ -139,7 +139,7 @@ if (token) {
                         </div>
                         <div className='subtitle'>EDIT YOUR PROFILE</div>
                         <div className="columns is-multiline is-mobile is-centered" style={{margin: '0 auto', display:"flex", columnWidth: '300px'}}>
-                        <div /* id='col1' */ className="column is-narrow is-flex-direction-column settingsBox" style={{marginLeft:'5%', marginTop:'5%', marginRight:'3%'}} >
+                        <div /* id='col1' */ className="column is-narrow is-flex-direction-column settingsBox" style={{marginLeft:'5%', marginTop:'5%', marginRight:'3%', width:'20%'}} >
                       
                         <div id="settingsUsername">
                             <label for="username">Username</label>
@@ -176,7 +176,7 @@ if (token) {
                              <div className="userPicture">
                                 <br />
                                 <label for="userPic">
-                                    <img style={{width:'auto', maxHeight:'300px',maxWidth:'350px',borderRadius:'8px',boxShadow: '5px 10px 8px #888888',border:'solid black 2px'}} src={avatar || userImg} className='user' id='settingsUserPic'/>
+                                    <img style={{width:'auto', maxHeight:'300px',maxWidth:'350px',borderRadius:'8px',boxShadow: '5px 10px 8px #888888',border:'solid rgba(17, 23, 93, 0.75) 2px'}} src={avatar || userImg} className='user' id='settingsUserPic'/>
                                 </label>
                                 <input id="userPic" type="file" onChange={onNewAvatar} />
                                 <div id="successAvatar"></div>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './MySensors.css';
 import SideBar from '../../components/SideBar/SideBar'
 import { MainContext } from '../../App';
@@ -18,13 +18,17 @@ function MySensors() {
 
     const [isActive, setIsActive] = useState(false)
 
-    const [options, setOptions] = useState([{"name": "", "id": ""}])
+    const [options, setOptions] = useState([])
+
+    const [roomsNames, setRoomsNames] = useState([])
+
+    const [modalMessage, setModalMessage] = useState("Add a new sensor")
 
     const [data, setData] = useState({
         sensorId:"",
     })
 
-    const [selected, setSelected] = useState("Which room ?")
+    const [selected, setSelected] = useState("Which room ? *")
 
     const [sensorName, setSensorName] = useState();
 
@@ -32,13 +36,19 @@ function MySensors() {
 
     const [sensorId, setSensorId] = useState();
 
+    const [newSensorName, setNewSensorName] = useState();
+
+    const [sensorKey, setSensorKey] = useState();
+
     const [isLoading, setIsLoading] = useState(false);
 
     const [sensors, setSensors] = useState([]);
 
     const [modal, setModal] = useState(false);
 
+    const [modalEdit, setModalEdit] = useState(false);
 
+    const [modalUpdateSensor, setModalUpdateSensor] = useState(false);
 
     const toggleModal = () => {
         setModal(!modal);
@@ -50,8 +60,6 @@ function MySensors() {
         document.body.classList.remove('active-modal')
       }
 
-      const [modalEdit, setModalEdit] = useState(false);
-
       const toggleModalEdit = () => {
           setModalEdit(!modalEdit);
         };
@@ -62,11 +70,61 @@ function MySensors() {
           document.body.classList.remove('active-modalEdit')
         }
 
+
+    const toggleModalUpdateSensor = () => {
+      setModalUpdateSensor(!modalUpdateSensor);
+    };
+  
+    if(modalUpdateSensor) {
+      document.body.classList.add('active-modalUpdate')
+    } else {
+      document.body.classList.remove('active-modalUpdate')
+    }
+
+        useEffect(() => {
+            getSensors();
+            getMyRooms();
+        }, [])
+      
+        const getSensors = async () =>{
+          setIsLoading(true)
+          try {
+          let result = await fetch(`http://35.176.229.91:8080/api/sensors/homeId/` + localStorage.getItem('userHomeId'), {headers: headers})
+          result = await result.json();
+          console.log(result) 
+          setSensors(result)
+          setIsLoading(false)
+        }
+          catch {
+            localStorage.clear()
+            window.location.replace(`http://localhost:3000`)
+        }
+          }
+
+          const deleteSensor = async(id) =>{
+            setIsLoading(true)
+            const reqOptions = {
+              method: 'DELETE',
+              headers: { 
+                  'Authorization': localStorage.getItem('token')
+              },
+              body: {home_RW_key: localStorage.getItem('userHomeId')}
+            };
+            let result = await fetch(`http://35.176.229.91:8080/api/sensors/sensorId/${id}`, reqOptions);
+            //result = await result.json();
+            if (result.data==="Error"){
+              window.location.replace(`http://localhost:3000`)
+            }
+            else {
+              getSensors();
+            }
+          }
+
         const getMyRooms = async () =>{
             let result = await fetch(`http://35.176.229.91:8080/api/rooms/roomsNames/homeId/` + localStorage.getItem('userHomeId'), {headers: headers})
             result = await result.json(); 
             console.log(result)
-            setOptions.name(result)
+            setOptions(result)
 
             console.log(options)
             /* catch {
@@ -78,13 +136,12 @@ function MySensors() {
       function checkSensor(e){
         e.preventDefault();
         //console.log(data);
-        Axios.get(`http://35.176.229.91:8080/api/sensors/sensorvalidator/` + data.sensorId,{
+        Axios.get(`http://35.176.229.91:8080/api/sensors/sensorvalidator/${sensorId}`,{
             sensorId: data.sensorId,
         })
         .then(res=>{
         if (res.data[0].found === "Sensor found"){
             e.preventDefault();
-            getMyRooms();
             getOneSensor();
             toggleModalEdit();
             //alert('Correct house ID !');
@@ -96,10 +153,32 @@ function MySensors() {
         })
     }
 
-    const getOneSensor = () => {
+    const createSensor = (e) => {
         setIsLoading(true)
-        Axios.get(`http://35.176.229.91:8080/api/sensors/sensorId/` + data.sensorId ,{headers})
+        e.preventDefault();
+        Axios.post(`http://35.176.229.91:8080/api/sensors/${sensorId}` ,{
+          sensor_name: sensorName,
+          home_RW_key: localStorage.getItem('userHomeId'),
+          room_name: selected
+        }, {headers})
         .then(res=>{
+            if(res.data === "Error") {
+                ReactDOM.render(<p>Please choose your room</p>, document.getElementById('noRoomChosen'));
+            }
+            else {
+            setIsLoading(false)
+            console.log(res.data);
+            window.location.reload(true);
+        }
+        })
+      }
+
+      const getOneSensor = () => {
+        setIsLoading(true)
+        Axios.get(`http://35.176.229.91:8080/api/sensors/sensorId/${sensorId}`,{headers})
+        .then(res=>{
+            setSensorName(null)
+            setModalMessage("Add a new sensor")
             setSensorName(res.data.sensor_name)
             setSensorType(res.data.sensor_type)
             setSensorId(res.data.sensor_RW_key)
@@ -107,28 +186,16 @@ function MySensors() {
         })
       }
 
-    function handle(e){
-        const newdata={...data}
-        newdata[e.target.id] = e.target.value
-        setData(newdata)
-        console.log(newdata)
-    }
-
-    const createSensor = (e) => {
+      const getOneSensorToUpdate = (id) => {
         setIsLoading(true)
-        e.preventDefault();
-        Axios.put(`http://35.176.229.91:8080/api/sensors/` + data.sensorId ,{
-          sensor_name: sensorName,
-          home_RW_key: localStorage.getItem('userHomeId'),
-          room_RW_key: selected
-        }, {headers})
+        Axios.get(`http://35.176.229.91:8080/api/sensors/sensorId/${id}` ,{headers})
         .then(res=>{
+            setSensorName(res.data.sensor_name)
+            setSensorType(res.data.sensor_type)
+            setSensorId(res.data.sensor_RW_key)
             setIsLoading(false)
-            console.log(res.data);
-            window.location.reload(true);
         })
       }
-
 
         return  (
             <div>
@@ -141,16 +208,13 @@ function MySensors() {
                         </div>
                         <div className='subtitle'>EDIT YOUR SENSORS INFORMATION</div>
 
-                        <div id="sensorsTotalNb">
-                            <label for="totalNbS">Total Number Of Sensors</label>
-                            <input /* onChange={(e)=>handle(e)} */ type="text" id="totalNbS" name="totalNbS" />
-                        </div>
+                        <br />
                         <div className='rooms-list'>
                          
-                         <ul>
+                         <ul className='titleSensor'>
                            <li style={{textAlign:'center'}}>Sensor's name</li>
                            <li style={{textAlign:'center'}}>Sensor's type</li>
-                           <li style={{textAlign:'center'}}>Room name</li>
+                           <li style={{textAlign:'center'}}>Room</li>
                            <li style={{textAlign:'center'}}>Delete a sensor</li>
                            <li style={{textAlign:'center'}}>Update a sensor</li>
                          </ul>
@@ -160,8 +224,8 @@ function MySensors() {
                            <li style={{textAlign:'center'}}>{item.sensor_name}</li>
                            <li style={{textAlign:'center'}}>{item.sensor_type}</li>
                            <li style={{textAlign:'center'}}>{item.room_name}</li>
-                           <li><button id="deleteButton" /* onClick={()=>deleteRoom(item.room_RW_key)} */ style={{marginLeft:'45px', marginTop:'35px'}}>Delete</button></li>
-                           <li><button id="updateButton" /* onClick={() => {toggleModalUpdate(); getOneRoom(item.room_RW_key); setRoomKey(item.room_RW_key)}} */ style={{marginLeft:'50px', marginTop:'35px'}}>Update</button></li>
+                           <li><button id="deleteButton" onClick={()=>deleteSensor(item.sensor_RW_key)} style={{marginLeft:'45px', marginTop:'35px'}}>Delete</button></li>
+                           <li><button id="updateButton" onClick={() => {toggleModalEdit(); getOneSensorToUpdate(item.sensor_RW_key); setSensorKey(item.sensor_RW_key); setNewSensorName(item.sensor_name); setModalMessage("Edit this sensor"); setSensorId(item.sensor_RW_key)}} style={{marginLeft:'50px', marginTop:'35px'}}>Update</button></li>
                          </ul>
                            )
                          }
@@ -185,7 +249,7 @@ function MySensors() {
             <h2>Add a new sensor</h2>
             <br />
                <label for="sensorId">Add your sensor ID</label>
-               <input onChange={(e)=>handle(e)} placeholder="Sensor ID" type="text" id="sensorId"></input>
+               <input onChange={(e)=>setSensorId(e.target.value)} placeholder="Sensor ID" type="text" id="sensorId"></input>
                <div id='SensorNotfound'></div>
             <br /><br /><br /><br /><br /><br /><br /><br />
             <button onClick={checkSensor} style={{width:'50%',position:'center'}}>Submit</button>
@@ -197,7 +261,7 @@ function MySensors() {
         <div className="modal">
           <div onClick={toggleModalEdit} className="overlay"></div>
           <div className="modal-content-sensor">
-            <h2>Edit this sensor</h2>
+            <h2>{modalMessage}</h2>
             <br />
             <div id="settingsFirstName">
                 <label for="sensorID">Sensor's ID</label>
@@ -219,7 +283,7 @@ function MySensors() {
             {isActive && (
             <div className="dropdown-content">
                 {options.map((option) =>(
-                <div className="dropdown-item" onClick={(e) => {
+                <div className="dropdown-item" required onClick={(e) => {
                     setSelected(option) 
                     setIsActive(false)
                     }}>
@@ -235,14 +299,17 @@ function MySensors() {
             </div>
             <br />
             <div id="settingsFirstName">
-                <label for="sensorName">Sensor's name</label>
-                <input type="text" id="sensorName" name="sensorName"/>
+                <label for="sensorName">Sensor name</label>
+                <input type="text" id="sensorName" name="sensorName" placeholder="Sensor name" value={sensorName} onChange={(e) => {setSensorName(e.target.value)}}/>
             </div>
+            <div id='noRoomChosen'></div>
             <br /><br />
             <button onClick={createSensor} style={{width:'50%',position:'center'}}>Submit</button>
           </div>
         </div>
       )}
+
+
 
                 </MainContext.Provider>
                 <Bulb />
