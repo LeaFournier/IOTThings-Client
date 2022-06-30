@@ -1,23 +1,30 @@
-import React from 'react';
-import styled from 'styled-components';
-import AddressForm from '../components/AddressForm/AddressForm';
+import React from "react";
+import styled from "styled-components";
+import AddressForm from "../components/AddressForm/AddressForm";
 import Logo from "../Logo.svg";
 
 function SubscriptionAddress() {
-    return (
-        <div>
-        <MainContainer>
+  return (
+    <div>
+      <MainContainer>
         <figure
-            className="image"
-            style={{ position: 'absolute', top: '5%', left:'50%', transform:'translate(-50%, -50%)', fontWeight:'bold' }}>
+          className="image"
+          style={{
+            position: "absolute",
+            top: "5%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            fontWeight: "bold",
+          }}
+        >
           <img src={Logo} />
         </figure>
         <WelcomeText>ENTER DETAILS ABOUT YOUR HOME</WelcomeText>
         <AddressForm />
         <HorizontalRule />
-        </MainContainer>
-        </div>
-    );
+      </MainContainer>
+    </div>
+  );
 }
 
 const MainContainer = styled.div`
@@ -33,8 +40,7 @@ const MainContainer = styled.div`
   border-radius: 10px;
   color: #ffffff;
   text-transform: uppercase;
-  letter-spacing: 0.4rem
-  @media only screen and (max-width: 320px) {
+  letter-spacing: 0.4rem @media only screen and (max-width: 320px) {
     width: 80vw;
     height: 90vh;
     hr {
@@ -70,7 +76,7 @@ const MainContainer = styled.div`
 `;
 
 const WelcomeText = styled.h2`
-margin: 4rem 0 1rem 0;
+  margin: 4rem 0 1rem 0;
 `;
 
 const HorizontalRule = styled.hr`

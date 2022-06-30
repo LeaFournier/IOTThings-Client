@@ -1,40 +1,73 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 import Logo from "../Logo.svg";
 import Button from "../components/Button";
 
 function IntermediatePage() {
-    return (
-        <div>
-        <div>
+  return (
+    <div>
+      <div>
         <MainContainer>
-        <figure
+          <figure
             className="image"
-            style={{ position: 'absolute', top: '5%', left:'50%', transform:'translate(-50%, -50%)', fontWeight:'bold' }}>
-          <img src={Logo} />
-        </figure>
-        <WelcomeText>WHICH ID DO YOU HAVE ?</WelcomeText>
-        <HorizontalRule />
-<br></br><br></br><br></br><br></br><br></br>
-        <ButtonContainer>
-        <a href="/HomeID" > 
-          <Button content="I have a Home ID"/>
-        </a>
-        </ButtonContainer> 
-        <br></br>
-        <ButtonContainer>
-        <a href="/SensorID"> 
-          <Button content="I have a Sensor ID"/>
-        </a>
-        </ButtonContainer> 
+            style={{
+              position: "absolute",
+              top: "5%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              fontWeight: "bold",
+            }}
+          >
+            <img src={Logo} />
+          </figure>
+          <WelcomeText>WHICH ID DO YOU HAVE ?</WelcomeText>
+          <HorizontalRule />
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <ButtonContainer>
+            <a href="/HomeID">
+              <Button content="I have a Home ID" />
+            </a>
+          </ButtonContainer>
+          <br></br>
+          <ButtonContainer>
+            <a href="/SensorID">
+              <Button content="I have a Sensor ID" />
+            </a>
+          </ButtonContainer>
 
-        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-        <p style={{fontSize:'12px',fontStyle:'italic', color:'white', textAlign:'center'}}>If you have purchased one of our products in the shop, then you have received an email from us with the Home ID.<br /> If not, you will find a sensor ID number on our product leaflet.</p>
-
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <p
+            style={{
+              fontSize: "12px",
+              fontStyle: "italic",
+              color: "white",
+              textAlign: "center",
+            }}
+          >
+            If you have purchased one of our products in the shop, then you have
+            received an email from us with the Home ID.
+            <br /> If not, you will find a sensor ID number on our product
+            leaflet.
+          </p>
         </MainContainer>
-        </div>
-        </div>
-    );
+      </div>
+    </div>
+  );
 }
 
 const MainContainer = styled.div`
@@ -49,8 +82,7 @@ const MainContainer = styled.div`
   -webkit-backdrop-filter: blur(8.5px);
   border-radius: 10px;
   color: #ffffff;
-  letter-spacing: 0.4rem
-  @media only screen and (max-width: 320px) {
+  letter-spacing: 0.4rem @media only screen and (max-width: 320px) {
     width: 80vw;
     height: 90vh;
     hr {
@@ -86,16 +118,7 @@ const MainContainer = styled.div`
 `;
 
 const WelcomeText = styled.h2`
-margin: 4rem 0 1rem 0;
-`;
-
-const InputContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  height: 20%;
-  width: 80%;
+  margin: 4rem 0 1rem 0;
 `;
 
 const ButtonContainer = styled.div`

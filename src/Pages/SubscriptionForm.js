@@ -1,59 +1,51 @@
-import React from 'react';
-import PostForm from '../components/PostForm/PostForm'
-import styled from 'styled-components';
-import HomeID from '../components/HomeID/HomeID';
-import { render } from 'react-dom';
+import React from "react";
+import PostForm from "../components/PostForm/PostForm";
+import styled from "styled-components";
 import Logo from "../Logo.svg";
-/* import Icon from "../components/Icon";
-import { FaFacebookF, FaInstagram, FaTwitter} from 'react-icons/fa'; */
 
 function SubscriptionForm() {
+  var userHomeId = localStorage.getItem("userHomeId");
 
-  /* const homeId = this.props.homeId */
-
-    /* const FacebookBackground =
-    "linear-gradient(to right, #0546A0 0%, #0546A0 40%, #663FB6 100%)";
-  const InstagramBackground =
-    "linear-gradient(to right, #A12AC4 0%, #ED586C 40%, #F0A853 100%)";
-  const TwitterBackground =
-    "linear-gradient(to right, #56C1E1 0%, #35A9CE 50%)"; */
-
-    /* render(){
-      const {data} = this.props.location
-      return(
-
-      )
-    } */
-
-    var userHomeId = localStorage.getItem('userHomeId');
-
-    return (
-        <div>
-        <MainContainer>
+  return (
+    <div>
+      <MainContainer>
         <figure
-            className="image"
-            style={{ position: 'absolute', top: '5%', left:'50%', transform:'translate(-50%, -50%)', fontWeight:'bold' }}>
+          className="image"
+          style={{
+            position: "absolute",
+            top: "5%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            fontWeight: "bold",
+          }}
+        >
           <img src={Logo} />
         </figure>
         <WelcomeText>ENTER YOUR PERSONAL DETAILS</WelcomeText>
-        <p style={{fontSize:'12px',fontStyle:'italic', color:'white', textAlign:'center'}}>Your home Id is : <div style={{color:'lightgreen', fontSize:'13px', fontStyle:'normal'}}>{userHomeId}</div></p>
+        <p
+          style={{
+            fontSize: "12px",
+            fontStyle: "italic",
+            color: "white",
+            textAlign: "center",
+          }}
+        >
+          Your home Id is :{" "}
+          <div
+            style={{
+              color: "lightgreen",
+              fontSize: "13px",
+              fontStyle: "normal",
+            }}
+          >
+            {userHomeId}
+          </div>
+        </p>
         <HorizontalRule />
         <PostForm />
-        {/* <LoginWith>FOLLOW US ON</LoginWith>
-        <IconsContainer>
-        <Icon color={FacebookBackground}>
-          <FaFacebookF />
-        </Icon>
-        <Icon color={InstagramBackground}>
-          <FaInstagram />
-        </Icon>
-        <Icon color={TwitterBackground}>
-          <FaTwitter />
-        </Icon>
-      </IconsContainer> */}
       </MainContainer>
-        </div>
-    );
+    </div>
+  );
 }
 
 const MainContainer = styled.div`
@@ -68,8 +60,7 @@ const MainContainer = styled.div`
   -webkit-backdrop-filter: blur(8.5px);
   border-radius: 10px;
   color: #ffffff;
-  letter-spacing: 0.4rem
-  @media only screen and (max-width: 320px) {
+  letter-spacing: 0.4rem @media only screen and (max-width: 320px) {
     width: 80vw;
     height: 90vh;
     hr {
@@ -105,13 +96,8 @@ const MainContainer = styled.div`
 `;
 
 const WelcomeText = styled.h2`
-margin: 4rem 0 1rem 0;
+  margin: 4rem 0 1rem 0;
 `;
-
-/* const LoginWith = styled.h5`
-  cursor: pointer;
-  margin: 5px;
-`; */
 
 const HorizontalRule = styled.hr`
   width: 90%;
@@ -123,17 +109,5 @@ const HorizontalRule = styled.hr`
   margin: 0.5rem;
   backdrop-filter: blur(25px);
 `;
-
-/* const IconsContainer = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  margin: 2rem 0 3rem 0;
-  width: 80%;
-`;
-
-const ForgotPassword = styled.h4`
-  cursor: pointer;
-  margin: 8px;
-`; */
 
 export default SubscriptionForm;

@@ -10,18 +10,22 @@ function ResetPassword() {
     var userId = localStorage.getItem("userId");
 
     const [passwordIsVisible, setPasswordIsVisible] = useState(false);
+
     const [confirmationPasswordIsVisible, setConfirmationPasswordIsVisible] = useState(false);
 
     const url="http://35.176.229.91:8080/api/endusers/resetPassword/"
+
     const [data, setData] = useState({
         newPassword:"",
         confirmPassword:"",
     })
 
+    //Conditions for the password
     const passwordHasValidLength = data.newPassword.length >= 8;
     const passwordHasUppercaseLetter = /[A-Z]/.test(data.newPassword);
     const passwordHasNumber = /[0-9]/.test(data.newPassword);
 
+    //Function to send the entered data to the server via the API if the newPassword is the sama as the confirmPassword
     function submit(e){
         e.preventDefault();
         if(data.newPassword === data.confirmPassword){
@@ -33,6 +37,7 @@ function ResetPassword() {
         }
     } 
 
+    //Function to store the user's input in value
     function handle(e){
         const newdata={...data}
         newdata[e.target.id] = e.target.value
@@ -40,10 +45,12 @@ function ResetPassword() {
         console.log(newdata)
     }
 
+    //Function to redirect to another page of the application
     const handleNewPassword = () => {
-    if(data.newPassword === data.confirmPassword){
+    if(data.newPassword === data.confirmPassword ){
         window.localStorage.removeItem("userId");
         window.location.replace(`http://localhost:3000`);
+
     }};
 
     return (
@@ -69,7 +76,7 @@ function ResetPassword() {
                 <br /> <br />
 
                 <div id="buttonContainer">
-                    <button onClick={handleNewPassword}>Submit</button>
+                    <button onClick={() => {handleNewPassword() ; submit()}}>Submit</button>
                 </div>
 
             </form>

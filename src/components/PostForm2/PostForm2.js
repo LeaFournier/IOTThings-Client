@@ -16,6 +16,7 @@ function PostForm2() {
     const [passwordIsVisible, setPasswordIsVisible] = useState(false);
 
     const url="http://35.176.229.91:8080/api/endusers/bySensor/"
+    
     const [data, setData] = useState({
         name:"",
         firstname:"",
@@ -27,10 +28,12 @@ function PostForm2() {
 
     })
 
+    //Conditions for the password
     const passwordHasValidLength = data.password.length >= 8;
     const passwordHasUppercaseLetter = /[A-Z]/.test(data.password);
     const passwordHasNumber = /[0-9]/.test(data.password);
 
+    //Function to send the entered data to the server via the API
     function submit(e){
         e.preventDefault();
         Axios.post(url + userSensorId,{
@@ -45,38 +48,21 @@ function PostForm2() {
         .then(res=>{
             console.log(res.data);
             if (res.data === "New end user created."){
-                //alert('Correct house ID !');
                 window.location.replace(`http://localhost:3000`);
             }else if (res.data === "Error creating new end user."){ 
                 console.log('error')
                 ReactDOM.render(<p>This username/email already exists, please choose a new one.</p>, document.getElementById('Err'));
-                //alert('Wrong house ID !');
-                //ReactDOM.render(<p>This home Id doesn't exist ! Try again</p>, document.getElementById('HomeNotfound'));
             }
         })
     }
 
+    //Function to store the user's input in value
     function handle(e){
         const newdata={...data}
         newdata[e.target.id] = e.target.value
         setData(newdata)
         console.log(newdata)
     }
-
-    /* const handleReturnMain = () => { */
-
-    /* var inputs = document.getElementsByTagName('input');
-    if (inputs.required=true) {
-        for(var i = 0; i < inputs.length; i++) {
-            if(inputs[i].value == "") {
-                console.log("pas bon")
-                return false
-            }
-        }
-        console.log("ok")
-        window.location.replace(`http://localhost:3000`);
-        return true
-    }}; */
 
     return (
         <div className="form">
@@ -106,7 +92,7 @@ function PostForm2() {
                <br /><br />
 
                <div id="buttonContainer">
-                <button /* onClick={handleReturnMain} */>Submit</button>
+                <button>Submit</button>
                </div>
             </form>
         </div>

@@ -12,6 +12,7 @@ function PostForm() {
     const [passwordIsVisible, setPasswordIsVisible] = useState(false);
 
     const url="http://35.176.229.91:8080/api/endusers/byHome/"
+
     const [data, setData] = useState({
         name:"",
         firstname:"",
@@ -23,10 +24,12 @@ function PostForm() {
 
     })
 
+    //Conditions for the password
     const passwordHasValidLength = data.password.length >= 8;
     const passwordHasUppercaseLetter = /[A-Z]/.test(data.password);
     const passwordHasNumber = /[0-9]/.test(data.password);
 
+    //Function to send the entered data to the server via the API
     function submit(e){
         e.preventDefault();
         Axios.post(url + userHomeId,{
@@ -41,16 +44,15 @@ function PostForm() {
         .then(res=>{
             console.log(res.data);
             if (res.data === "New end user created."){
-                //alert('Correct house ID !');
                 window.location.replace(`http://localhost:3000`);
             }else if (res.data === "Error creating new end user."){ 
                 console.log('error')
-                //alert('Wrong house ID !');
                 ReactDOM.render(<p>This username/email already exists, please choose a new one.</p>, document.getElementById('Err'));
             }
         })
     }
 
+    //Function to store the user's input in value
     function handle(e){
         const newdata={...data}
         newdata[e.target.id] = e.target.value

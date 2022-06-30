@@ -1,25 +1,41 @@
-import React,{useState} from 'react';
-import styled from 'styled-components';
-import HomeID from '../components/HomeID/HomeID'
-import SubscriptionForm from './SubscriptionForm';
+import React, { useState } from "react";
+import styled from "styled-components";
+import HomeID from "../components/HomeID/HomeID";
 import Logo from "../Logo.svg";
 
 function HomeConfirmation() {
-    return (
-        <div>
-        <MainContainer>
+  return (
+    <div>
+      <MainContainer>
         <figure
-            className="image"
-            style={{ position: 'absolute', top: '5%', left:'50%', transform:'translate(-50%, -50%)', fontWeight:'bold' }}>
+          className="image"
+          style={{
+            position: "absolute",
+            top: "5%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            fontWeight: "bold",
+          }}
+        >
           <img src={Logo} />
         </figure>
         <WelcomeText>ENTER YOUR HOME ID</WelcomeText>
-        <p style={{fontSize:'12px',fontStyle:'italic', color:'white', textAlign:'center'}}>If you don't have this ID, <br />please contact our customer support service</p>
+        <p
+          style={{
+            fontSize: "12px",
+            fontStyle: "italic",
+            color: "white",
+            textAlign: "center",
+          }}
+        >
+          If you don't have this ID, <br />
+          please contact our customer support service
+        </p>
         <HorizontalRule />
         <HomeID />
-        </MainContainer>
-        </div>
-    );
+      </MainContainer>
+    </div>
+  );
 }
 
 const MainContainer = styled.div`
@@ -34,8 +50,7 @@ const MainContainer = styled.div`
   -webkit-backdrop-filter: blur(8.5px);
   border-radius: 10px;
   color: #ffffff;
-  letter-spacing: 0.4rem
-  @media only screen and (max-width: 320px) {
+  letter-spacing: 0.4rem @media only screen and (max-width: 320px) {
     width: 80vw;
     height: 90vh;
     hr {
@@ -71,7 +86,7 @@ const MainContainer = styled.div`
 `;
 
 const WelcomeText = styled.h2`
-margin: 4rem 0 1rem 0;
+  margin: 4rem 0 1rem 0;
 `;
 
 const HorizontalRule = styled.hr`

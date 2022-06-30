@@ -4,6 +4,8 @@ import './Dropdown.css';
 function Dropdown({selected, setSelected}) {
 
     const [isActive, setIsActive] = useState(false)
+
+    //To define the different types of rooms
     const options = ['Bedroom','Kitchen','Bathroom','Toilet','Living room']
 
     return (
